@@ -1,0 +1,50 @@
+services:
+  app:
+    build: .
+    container_name: simahasiswa_app
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: si_mahasiswa
+      DB_USER: root
+      DB_PASS: root
+    volumes:
+      # Live-reload: perubahan kode langsung terlihat tanpa rebuild
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: simahasiswa_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: si_mahasiswa
+    volumes:
+      # Skrip SQL dijalankan otomatis saat pertama kali container dibuat
+      # (urutan sesuai nama file: 01 dulu, lalu 02)
+      - ./sql/setup.sql:/docker-entrypoint-initdb.d/01-setup.sql
+      - ./sql/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: simahasiswa_pma
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+
+volumes:
+  db_data:
