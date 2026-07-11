@@ -55,7 +55,7 @@ Tunggu ±30 detik saat pertama kali (MySQL menyiapkan database), lalu buka:
 
 | Layanan     | URL                     | Login                  |
 |-------------|-------------------------|------------------------|
-| Aplikasi    | http://localhost:8080   | admin / admin123       |
+| Aplikasi    | http://localhost:8080   | admin / password       |
 | phpMyAdmin  | http://localhost:8081   | root / root            |
 
 Database otomatis terisi **30 mahasiswa contoh + nilai acak** dari `sql/seed.sql`.
