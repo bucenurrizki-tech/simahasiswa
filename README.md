@@ -75,7 +75,7 @@ docker compose logs app    # lihat log aplikasi
 3. Import `sql/setup.sql` lewat phpMyAdmin (atau `mysql -u root < sql/setup.sql`)
 4. (Opsional) Import juga `sql/seed.sql` untuk mengisi 30 data mahasiswa contoh
 5. Buka `http://localhost/simahasiswa`
-6. Login: username `admin`, password `admin123`
+6. Login: username `admin`, password `password`
 
 > Kredensial database bisa disesuaikan di `classes/Database.php`.
 
